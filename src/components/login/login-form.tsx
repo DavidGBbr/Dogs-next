@@ -1,13 +1,35 @@
+"use client";
 import login from "@/actions/login";
-import React from "react";
+import { useFormState, useFormStatus } from "react-dom";
+import Button from "@/components/forms/button";
 
-const LoginForm = () => {
+function FormButton() {
+  const { pending } = useFormStatus();
+
   return (
     <>
-      <form action={login}>
+      {pending ? (
+        <Button disabled={pending}>Enviando...</Button>
+      ) : (
+        <Button>Entrar</Button>
+      )}
+    </>
+  );
+}
+
+const LoginForm = () => {
+  const [state, action] = useFormState(login, {
+    ok: false,
+    error: "",
+    data: null,
+  });
+  return (
+    <>
+      <form action={action}>
         <input type="text" name="username" placeholder="usuário" />
         <input type="password" name="password" placeholder="senha" />
-        <button>Entrar</button>
+        <FormButton />
+        <p>{state.error}</p>
       </form>
     </>
   );
