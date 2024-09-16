@@ -1,27 +1,20 @@
-import React from "react";
-import * as C from "./styles";
+import styles from "./input.module.css";
 
-export const Input = ({
-  label,
-  type,
-  name,
-  value,
-  onChange,
-  error,
-  onBlur,
-}) => {
+type InputProps = React.ComponentProps<"input"> & {
+  label: string;
+  error?: string;
+};
+
+const Input = ({ label, error, ...props }: InputProps) => {
   return (
-    <C.Wrapper>
-      <C.Label htmlFor={name}>{label}</C.Label>
-      <C.Input
-        id={name}
-        name={name}
-        type={type}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-      {error && <C.Error>{error}</C.Error>}
-    </C.Wrapper>
+    <div className={styles.wrapper}>
+      <label className={styles.label} htmlFor={props.name}>
+        {label}
+      </label>
+      <input className={styles.input} type="text" id={props.name} {...props} />
+      {error && <p className={styles.error}>{error}</p>}
+    </div>
   );
 };
+
+export default Input;
