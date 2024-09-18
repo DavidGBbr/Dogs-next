@@ -5,6 +5,8 @@ import Button from "@/components/forms/button";
 import Input from "@/components/forms/input";
 import ErrorMessage from "../helper/error-message";
 import { useEffect } from "react";
+import Link from "next/link";
+import styles from "./login-form.module.css";
 
 function FormButton() {
   const { pending } = useFormStatus();
@@ -33,12 +35,21 @@ const LoginForm = () => {
 
   return (
     <>
-      <form action={action}>
+      <form action={action} className={styles.form}>
         <Input label="Usuário" name="username" type="text" />
         <Input label="Senha" name="password" type="password" />
         <ErrorMessage error={state.error} />
         <FormButton />
-        <p>{state.error}</p>
+        <Link className={styles.perdeu} href="/login/perdeu">
+          Perdeu a senha?
+        </Link>
+        <div className={styles.cadastro}>
+          <h2 className={styles.subtitle}>Cadastre-se</h2>
+          <p>Ainda não possui conta? Cadastre-se no site.</p>
+          <Link href="/login/cadastro" className="button">
+            Cadastro
+          </Link>
+        </div>
       </form>
     </>
   );
