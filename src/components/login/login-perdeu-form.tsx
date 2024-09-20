@@ -3,7 +3,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import Button from "@/components/forms/button";
 import Input from "@/components/forms/input";
 import ErrorMessage from "../helper/error-message";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./login-form.module.css";
 import passwordLost from "@/actions/password-lost";
 
@@ -28,14 +28,16 @@ const LoginPerdeuForm = () => {
     data: null,
   });
 
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    setUrl(`${window.location.href.replace("perdeu", "resetar")}`);
+  }, []);
+
   return (
     <form action={action} className={styles.form}>
       <Input label="Email / Usuário" name="login" type="text" />
-      <input
-        type="hidden"
-        name="url"
-        value={`${window.location.href.replace("perdeu", "resetar")}`}
-      />
+      <input type="hidden" name="url" value={`${url}`} />
       {state.ok ? (
         <p style={{ color: "#4c1" }}>Email enviado.</p>
       ) : (
