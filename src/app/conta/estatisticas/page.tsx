@@ -1,5 +1,8 @@
-import React from "react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Estatísticas | Minha Conta",
+};
 const EstatisticasPage = () => {
   return (
     <main>
