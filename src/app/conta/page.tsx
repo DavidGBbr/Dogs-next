@@ -8,13 +8,13 @@ export const metadata: Metadata = {
   title: "Minha Conta",
 };
 
-const ContaPage = async () => {
+export default async function ContaPage() {
   const { data: user } = await userGet();
   const { data } = await photosGet({ user: user?.username });
   return (
-    <main>
+    <section>
       {data?.length ? (
-        <Feed photos={data} />
+        <Feed photos={data} user={user?.username} />
       ) : (
         <div>
           <p
@@ -31,8 +31,6 @@ const ContaPage = async () => {
           </Link>
         </div>
       )}
-    </main>
+    </section>
   );
-};
-
-export default ContaPage;
+}
