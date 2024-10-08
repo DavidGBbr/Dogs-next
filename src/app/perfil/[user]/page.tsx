@@ -1,10 +1,16 @@
+import photosGet from "@/actions/photos-get";
+import Feed from "@/components/feed/feed";
 import React from "react";
 
-const PerfilUserPage = ({ params }: { params: { user: string } }) => {
+const PerfilUserPage = async ({ params }: { params: { user: string } }) => {
+  const { data } = await photosGet({ user: params.user });
+
+  if (!data) return null;
   return (
-    <main>
-      <h1>Usuário: {params.user}</h1>
-    </main>
+    <section className="container mainSection">
+      <h1 className="title">{params.user}</h1>
+      <Feed photos={data} user={params.user} />
+    </section>
   );
 };
 
